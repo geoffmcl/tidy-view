@@ -47,10 +47,12 @@
 #endif
 
 #define USE_CODE_EDITOR
+class CodeEditor;
 
 QT_BEGIN_NAMESPACE
 class QTextEdit;
 QT_END_NAMESPACE
+
 
 class MainWindow : public QMainWindow
 {
@@ -60,6 +62,8 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void closeEvent(QCloseEvent *);
+    void moveEvent(QMoveEvent *);
+
     void readSettings();
     void saveSettings();
 

@@ -44,6 +44,7 @@
 #include <QPlainTextEdit>
 #include <QObject>
 #include <vector>
+#include "mainwindow.h"
 
 QT_BEGIN_NAMESPACE
 class QPaintEvent;
@@ -53,6 +54,7 @@ class QWidget;
 QT_END_NAMESPACE
 
 class LineNumberArea;
+class MainWindow;
 
 typedef struct tagLINEMAP {
     int line;
@@ -74,6 +76,7 @@ public:
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
     vLMAP *plm;
+    MainWindow *mainWin;
 
 protected:
     void resizeEvent(QResizeEvent *event);

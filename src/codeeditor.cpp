@@ -39,7 +39,7 @@
 ****************************************************************************/
 
 #include <QtGui>
-
+#include "mainwindow.h"
 #include "codeeditor.h"
 
 //![constructor]
@@ -47,6 +47,7 @@
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
+    mainWin = (MainWindow *)parent;
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
@@ -114,6 +115,8 @@ void CodeEditor::resizeEvent(QResizeEvent *e)
 
     QRect cr = contentsRect();
     lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
+
+    mainWin->saveSettings();
 }
 
 //![resizeEvent]

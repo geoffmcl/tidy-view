@@ -40,6 +40,10 @@ void MainWindow::saveSettings()
     settings.setValue("main/windowState", saveState());
 }
 
+void MainWindow::moveEvent ( QMoveEvent * event )
+{
+    saveSettings();
+}
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     saveSettings();
@@ -150,11 +154,11 @@ void MainWindow::setupEditor()
     font.setFixedPitch(true);
     font.setPointSize(10);
 #ifdef USE_CODE_EDITOR
-    editor = new CodeEditor;
+    editor = new CodeEditor(this);
     editor->setFont(font);
     editor->setReadOnly(true);
 
-    editor2 = new CodeEditor;
+    editor2 = new CodeEditor(this);
     editor2->setFont(font);
     editor2->setReadOnly(true);
 
