@@ -10,3 +10,7 @@ cmake_install.cmake
 src/*
 *.dir/*
 *.sln
+Makefile
+install_manifest.txt
+tidy-view
+
