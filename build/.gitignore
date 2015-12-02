@@ -13,4 +13,7 @@ src/*
 Makefile
 install_manifest.txt
 tidy-view
-
+*.user
+ipch/*
+*.sdf
+*.suo

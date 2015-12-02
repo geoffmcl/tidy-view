@@ -32,11 +32,17 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
+void MainWindow::saveSettings()
+{
+    // QSettings settings("MyCompany", "MyApp");
+    QSettings settings(APP_SETD, APP_SETN);
+    settings.setValue("main/geometry", saveGeometry());
+    settings.setValue("main/windowState", saveState());
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    QSettings settings("MyCompany", "MyApp");
-    settings.setValue("geometry", saveGeometry());
-    settings.setValue("windowState", saveState());
+    saveSettings();
     QMainWindow::closeEvent(event);
 }
 
@@ -47,9 +53,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::readSettings()
 {
-    QSettings settings("MyCompany", "MyApp");
-    restoreGeometry(settings.value("geometry").toByteArray());
-    restoreState(settings.value("windowState").toByteArray());
+    // QSettings settings("MyCompany", "MyApp");
+    QSettings settings(APP_SETD, APP_SETN);
+    restoreGeometry(settings.value("main/geometry").toByteArray());
+    restoreState(settings.value("main/windowState").toByteArray());
 }
 
 void MainWindow::about()
@@ -61,7 +68,8 @@ void MainWindow::about()
                    "highlighting rules using regular expressions.</p>"
                    "<p>Tidy Viewer has two views. The left is the <b>raw</b> HTML "
                    "file text, and the right is a <b>tidied</b> view if data "
-                   "is successful obtained from libtidy</p>"));
+                   "is successful obtained from libtidy</p> "
+                   "<p>Version: " TIDYVIEW_VERSION " Date: " TIDYVIEW_DATE "</p>"));
 }
 
 void MainWindow::newFile()
@@ -104,6 +112,8 @@ void MainWindow::getTidyView(QString data)
         QString s = QString::fromUtf8((const char *)output.bp);
         editor2->plm = &lmap;
         editor2->setPlainText( s );
+    } else {
+
     }
 
     tidyBufFree( &output );

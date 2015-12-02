@@ -14,13 +14,24 @@ set( LIB_TYPE STATIC )  # set default static
 option( BUILD_SHARED_LIB    "Set ON to build Shared Libraries"      OFF )
 option( BUILD_TEST_PROGRAMS "Set ON to build the utility programs"  OFF )
 
-# read 'version' file into a variable (stripping any newlines or spaces)
-#file(READ version versionFile)
-#if (NOT versionFile)
-#    message(FATAL_ERROR "Unable to determine version. version file is missing.")
-#endif()
-#string(STRIP "${versionFile}" MY_VERSION)
-#add_definitions( -DVERSION="${MY_VERSION}" )
+# NOTE: Both version and date MUST be DOT separated, in two lines.
+file(READ version.txt versionFile)
+if (NOT versionFile)
+    message(FATAL_ERROR "Unable to determine libtidy version. version.txt file is missing.")
+endif()
+string(STRIP "${versionFile}" VERSION_TEXT)
+string(REGEX REPLACE "(.*)[\r\n|\n](.*)" "\\1" TIDYVIEW_VERSION ${VERSION_TEXT})
+string(REGEX REPLACE "(.*)[\r\n|\n](.*)" "\\2" TIDYVIEW_DATE ${VERSION_TEXT})
+# establish version number
+if (NOT TIDYVIEW_VERSION)
+    message(FATAL_ERROR "*** FAILED to get a VERSION from version.txt!")
+endif ()    
+if (NOT TIDYVIEW_DATE)
+    message(FATAL_ERROR "*** FAILED to get a DATE from version.txt!")
+endif ()
+add_definitions( -DTIDYVIEW_VERSION="${TIDYVIEW_VERSION}" )
+add_definitions( -DTIDYVIEW_DATE="${TIDYVIEW_DATE}" )
+message(STATUS "*** TIDYVIEW_VERSION=\"${TIDYVIEW_VERSION}\" TIDYVIEW_DATE=\"${TIDYVIEW_DATE}\"" )
 
 # Uncomment to REDUCE the Windows configurations buildable
 set(CMAKE_CONFIGURATION_TYPES "Release;Debug" CACHE STRING "" FORCE) # Disables MinSizeRel & MaxSpeedRel

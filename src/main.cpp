@@ -16,10 +16,12 @@ bool m_fileExists(QString path)
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QApplication::setOrganizationName("Test");
-    QApplication::setOrganizationDomain("test.com");
-    QApplication::setApplicationName("tested");
-    QApplication::setApplicationVersion("0.0.1");
+
+    QApplication::setOrganizationDomain(APP_SETD);
+    // store the UNIX file as $HOME/.config/geoffair/Qt_OSM_Map.conf - nav: . hconf; cd geoffair
+    QApplication::setOrganizationName(APP_SETO);
+    QApplication::setApplicationName(APP_SETN);
+    QApplication::setApplicationVersion(APP_SETV);
 
     QSettings startsettings;
     MainWindow w;

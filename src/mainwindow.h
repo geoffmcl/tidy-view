@@ -25,6 +25,27 @@
 #include "highlighter.h"
 #include "codeeditor.h"
 
+#ifndef TIDYVIEW_VERSION
+#define TIDYVIEW_VERSION "BAD_VERSION!"
+#endif
+#ifndef TIDYVIEW_DATE
+#define TIDYVIEW_DATE "1970.01.01"
+#endif
+
+#ifndef APP_SETD
+#define APP_SETD "geoffair.org"
+#endif
+#ifndef APP_SETO
+#define APP_SETO "geoffair"
+#endif
+
+#ifndef APP_SETN
+#define APP_SETN "tidy-view"
+#endif
+#ifndef APP_SETV
+#define APP_SETV TIDYVIEW_VERSION
+#endif
+
 #define USE_CODE_EDITOR
 
 QT_BEGIN_NAMESPACE
@@ -40,6 +61,7 @@ public:
     ~MainWindow();
     void closeEvent(QCloseEvent *);
     void readSettings();
+    void saveSettings();
 
     void setupEditor();
     void setupFileMenu();

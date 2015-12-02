@@ -50,11 +50,16 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
+#ifdef HIGHLIGHT_CURRENT_LINE
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+#endif //#ifdef HIGHLIGHT_CURRENT_LINE
 
     plm = 0;
     updateLineNumberAreaWidth(0);
+
+#ifdef HIGHLIGHT_CURRENT_LINE
     highlightCurrentLine();
+#endif //#ifdef HIGHLIGHT_CURRENT_LINE
 }
 
 //![constructor]
@@ -113,8 +118,8 @@ void CodeEditor::resizeEvent(QResizeEvent *e)
 
 //![resizeEvent]
 
+#ifdef HIGHLIGHT_CURRENT_LINE
 //![cursorPositionChanged]
-
 void CodeEditor::highlightCurrentLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
@@ -133,8 +138,8 @@ void CodeEditor::highlightCurrentLine()
 
     setExtraSelections(extraSelections);
 }
-
 //![cursorPositionChanged]
+#endif //#ifdef HIGHLIGHT_CURRENT_LINE
 
 //![extraAreaPaintEvent_0]
 
@@ -188,3 +193,4 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 }
 //![extraAreaPaintEvent_2]
 
+// eof

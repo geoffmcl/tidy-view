@@ -80,7 +80,9 @@ protected:
 
 private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
+#ifdef HIGHLIGHT_CURRENT_LINE
     void highlightCurrentLine();
+#endif // HIGHLIGHT_CURRENT_LINE
     void updateLineNumberArea(const QRect &, int);
 
 private:
